@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\User;
 use Mail;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -34,10 +35,13 @@ class UsersController extends Controller
     }
 
     public function show($id)
-    {
-        $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
-    }
+     {
+         $user = User::findOrFail($id);
+         $statuses = $user->statuses()
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(30);
+         return view('users.show', compact('user', 'statuses'));
+     }
 
     public function store(Request $request)
     {
@@ -121,5 +125,7 @@ class UsersController extends Controller
        session()->flash('success', '成功删除用户！');
        return back();
    }
+
+
 
 }
