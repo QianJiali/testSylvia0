@@ -32,6 +32,7 @@ delete('logout', 'SessionsController@destroy')->name('logout');
 
 get('/users/{id}/edit', 'UsersController@edit')->name('users.edit');
 
+
 get('password/email', 'Auth\PasswordController@getEmail')->name('password.reset');
 post('password/email', 'Auth\PasswordController@postEmail')->name('password.reset');
 get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('password.edit');
